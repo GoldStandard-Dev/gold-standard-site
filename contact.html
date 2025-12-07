@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Contact – Gold Standard Digital Marketing</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header>
+  <div class="max-width nav">
+    <div class="nav-left">
+      <div class="nav-logo">
+        <img src="images/logo/logo.png" alt="Gold Standard Digital Marketing Logo" />
+      </div>
+      <div class="brand-text">
+        GOLD STANDARD
+        <span>DIGITAL MARKETING</span>
+      </div>
+    </div>
+
+    <button class="nav-toggle" aria-label="Toggle navigation">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <nav class="nav-links">
+      <a href="home.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="max-width hero-inner">
+      <div class="hero-content">
+        <span class="hero-highlight">Let’s Connect</span>
+        <h1>Contact Us</h1>
+        <div class="gold-line"></div>
+        <p class="hero-subtitle">
+          Tell us about your business and what growth looks like for you—we’ll
+          respond with a clear next step.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT FORM -->
+  <section class="section-padding contact-section">
+    <div class="contact-wrapper">
+      <div class="contact-grid">
+	       <form class="contact-form" action="#" method="post">
+	         <label for="name">Name</label>
+	         <input id="name" name="name" type="text" placeholder="Your full name">
+
+	         <label for="email">Email</label>
+	         <input id="email" name="email" type="email" placeholder="you@email.com">
+
+	         <label for="company">Company</label>
+	         <input id="company" name="company" type="text" placeholder="Business / Brand">
+
+	         <label for="service">Service Interest</label>
+	         <select id="service" name="service">
+	           <option>SEO &amp; Organic Growth</option>
+	           <option>Paid Ads (Google &amp; Meta)</option>
+	           <option>Branding &amp; Funnel Design</option>
+	           <option>Web Design &amp; Landing Pages</option>
+	           <option>Not Sure Yet – Need Guidance</option>
+	         </select>
+
+	         <label for="message">Message</label>
+	         <textarea id="message" name="message" rows="4"
+	           placeholder="Tell us where you are now and what you’d like to achieve."></textarea>
+
+	         <button type="submit" class="btn-primary">Submit</button>
+	       </form>
+
+        <div class="contact-side">
+          <h3>Prefer Email?</h3>
+          <p>
+            Reach out directly and share a quick overview of your business,
+            your current marketing, and your goals.
+          </p>
+          <p><strong>info@goldstandarddigital.com</strong></p>
+
+          <h3>What to Expect</h3>
+          <p>
+            We’ll review your message, look at your existing presence, and reply
+            with either a few quick-win recommendations or an invitation for a
+            deeper strategy call.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="max-width footer-main">
+    <!-- Brand / tagline -->
+    <div class="footer-column footer-brand">
+      <div class="footer-logo-row">
+        <img src="images/logo/logo.png" alt="Gold Standard Digital Marketing logo">
+        <div class="footer-brand-text">
+          <span class="footer-brand-title">Gold Standard</span>
+          <span class="footer-brand-subtitle">Digital Marketing</span>
+        </div>
+      </div>
+      <p class="footer-tagline">
+        Premium strategy, premium presentation, premium results
+      </p>
+      </p>
+    </div>
+
+    <!-- Navigation -->
+    <div class="footer-column">
+      <h4>Navigate</h4>
+      <ul class="footer-links">
+        <li><a href="home.html">Home</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+
+    <!-- Legal -->
+    <div class="footer-column">
+      <h4>Legal</h4>
+      <ul class="footer-links">
+        <li><a href="privacy.html">Privacy Policy</a></li>
+        <li><a href="terms.html">Terms of Service</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="max-width footer-bottom">
+    <p class="footer-copy">
+      © <span id="year"></span> Gold Standard Digital Marketing. All rights reserved.
+    </p>
+    <div class="footer-social">
+      <!-- Replace # with your real profiles -->
+      <a href="#" target="_blank" rel="noopener">Instagram</a>
+      <a href="#" target="_blank" rel="noopener">Facebook</a>
+      <a href="#" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+  </div>
+</footer>
+
+
+<div class="cursor-glow"></div>
+
+<script>
+  const yearEl = document.getElementById("year");
+  if (yearEl) {
+    yearEl.textContent = new Date().getFullYear();
+  }
+
+  const glow = document.querySelector(".cursor-glow");
+  function spawnTrailDot(x, y) {
+    const dot = document.createElement("span");
+    dot.className = "cursor-trail-dot";
+    dot.style.left = x + "px";
+    dot.style.top = y + "px";
+    document.body.appendChild(dot);
+    setTimeout(() => dot.remove(), 550);
+  }
+
+  if (glow) {
+    window.addEventListener("pointermove", (e) => {
+      const x = e.clientX;
+      const y = e.clientY;
+      glow.style.transform = `translate3d(${x - 90}px, ${y - 90}px, 0)`;
+      glow.style.opacity = 0.6;
+      spawnTrailDot(x, y);
+    });
+
+    window.addEventListener("pointerleave", () => {
+      glow.style.opacity = 0;
+    });
+  }
+
+  const navToggle = document.querySelector(".nav-toggle");
+  const navLinks = document.querySelector(".nav-links");
+
+  if (navToggle && navLinks) {
+    navToggle.addEventListener("click", () => {
+      navToggle.classList.toggle("open");
+      navLinks.classList.toggle("open");
+    });
+
+    navLinks.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        navToggle.classList.remove("open");
+        navLinks.classList.remove("open");
+      });
+    });
+  }
+
+  const currentPage = window.location.pathname.split("/").pop() || "home.html";
+  document.querySelectorAll(".nav-links a").forEach((link) => {
+    if (link.getAttribute("href") === currentPage) {
+      link.classList.add("active");
+    }
+  });
+
+  const contactForm = document.querySelector(".contact-form");
+  if (contactForm) {
+    const fields = contactForm.querySelectorAll("input, textarea");
+    fields.forEach((field) => {
+      field.addEventListener("input", () => {
+        const particle = document.createElement("span");
+        particle.className = "gold-particle";
+        particle.style.position = "absolute";
+        particle.style.left = Math.random() * 90 + "%";
+        particle.style.top = Math.random() * 60 + "%";
+        particle.style.width = "8px";
+        particle.style.height = "8px";
+        particle.style.borderRadius = "50%";
+        particle.style.background =
+          "radial-gradient(circle, rgba(212,175,55,1), rgba(212,175,55,0))";
+        particle.style.pointerEvents = "none";
+        particle.style.opacity = "0.9";
+        particle.style.animation = "particleFloat 0.7s ease-out forwards";
+
+        contactForm.appendChild(particle);
+        setTimeout(() => particle.remove(), 700);
+      });
+    });
+  }
+</script>
+
+</body>
+</html>
