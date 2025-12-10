@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Page Not Found | Gold Standard Digital Marketing</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- Header / Nav (matches main site) -->
+  <header>
+    <div class="max-width nav">
+      <div class="nav-left">
+        <div class="nav-logo">
+          <img src="images/logo/logo.png" alt="Gold Standard Digital Marketing Logo" />
+        </div>
+        <div class="brand-text">
+          GOLD STANDARD
+          <span>DIGITAL MARKETING</span>
+        </div>
+      </div>
+
+      <button class="nav-toggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="services.html">Services</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- 404 Hero -->
+  <main class="error-404-shell">
+    <section class="error-404">
+      <div class="error-404-inner">
+        <p class="error-kicker">404 — Not Found</p>
+        <h1>This page went off-strategy.</h1>
+        <p class="error-copy">
+          The link you followed doesn’t exist anymore, or the URL was mistyped.
+          Let’s get you back to a page that’s actually built to convert.
+        </p>
+
+        <div class="error-actions">
+          <a href="index.html" class="error-btn error-btn-primary">
+            ← Back to Home
+          </a>
+          <a href="services.html" class="error-btn error-btn-ghost">
+            View Services
+          </a>
+        </div>
+
+        <p class="error-small">
+          Still can’t find what you’re looking for? Reach out via the
+          <a href="contact.html">contact page</a>.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="max-width footer-bottom">
+      <p class="footer-copy">
+        © <span id="year"></span> Gold Standard Digital Marketing. All rights reserved.
+      </p>
+      <div class="footer-social">
+        <a href="#" target="_blank" rel="noopener">Instagram</a>
+        <a href="#" target="_blank" rel="noopener">Facebook</a>
+        <a href="#" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // year in footer
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
