@@ -192,5 +192,49 @@
   }
 </script>
 
+<!-- ============================== -->
+<!--  GOOGLE ANALYTICS (CONSENT-BASED)  -->
+<!-- ============================== -->
+<script>
+(function(){
+  const GA4_ID = "G-4M3Y8CLP43";     // YOUR ID ✔
+  let gaLoaded = false;
+
+  function loadGA4(){
+    if(gaLoaded) return;
+    gaLoaded = true;
+
+    // Inject GA script
+    const s = document.createElement("script");
+    s.async = true;
+    s.src = "https://www.googletagmanager.com/gtag/js?id=" + GA4_ID;
+    document.head.appendChild(s);
+
+    // Configure GA
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    window.gtag = gtag;
+
+    gtag("js", new Date());
+    gtag("config", GA4_ID, { anonymize_ip:true });
+  }
+
+  // Load only if analytics consent = ON
+  function tryLoad(){
+    if(typeof hasConsent === "function" && hasConsent("analytics")){
+      loadGA4();
+    }
+  }
+
+  // Load on first visit if user already accepted cookies
+  window.addEventListener("load", tryLoad);
+
+  // Load immediately when user clicks "Accept" or "Save"
+  window.addEventListener("cookieConsentUpdated", e => {
+    if(e.detail?.analytics === true) loadGA4();
+  });
+})();
+</script>
+
 </body>
 </html>

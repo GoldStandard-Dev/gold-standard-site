@@ -666,59 +666,49 @@ window.addEventListener("load", function () {
 });
 </script>
 
+<!-- ============================== -->
+<!--  GOOGLE ANALYTICS (CONSENT-BASED)  -->
+<!-- ============================== -->
 <script>
-  (function () {
-    // 🔁 Replace this with your real GA4 Measurement ID
-    const GA4_ID = "G-4M3Y8CLP43";
+(function(){
+  const GA4_ID = "G-4M3Y8CLP43";     // YOUR ID ✔
+  let gaLoaded = false;
 
-    let gaLoaded = false;
+  function loadGA4(){
+    if(gaLoaded) return;
+    gaLoaded = true;
 
-    function loadGA4() {
-      if (gaLoaded || !GA4_ID) return;
-      gaLoaded = true;
+    // Inject GA script
+    const s = document.createElement("script");
+    s.async = true;
+    s.src = "https://www.googletagmanager.com/gtag/js?id=" + GA4_ID;
+    document.head.appendChild(s);
 
-      // Load the GA4 library
-      const script = document.createElement("script");
-      script.async = true;
-      script.src = "https://www.googletagmanager.com/gtag/js?id=" + GA4_ID;
-      document.head.appendChild(script);
+    // Configure GA
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    window.gtag = gtag;
 
-      // Standard gtag setup
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){ dataLayer.push(arguments); }
-      window.gtag = gtag;
+    gtag("js", new Date());
+    gtag("config", GA4_ID, { anonymize_ip:true });
+  }
 
-      gtag("js", new Date());
-      gtag("config", G-4M3Y8CLP43, {
-        anonymize_ip: true
-      });
+  // Load only if analytics consent = ON
+  function tryLoad(){
+    if(typeof hasConsent === "function" && hasConsent("analytics")){
+      loadGA4();
     }
+  }
 
-    // Helper: load GA4 only if analytics consent is currently ON
-    function loadGA4IfAllowed() {
-      if (typeof hasConsent === "function" && hasConsent("analytics")) {
-        loadGA4();
-      }
-    }
+  // Load on first visit if user already accepted cookies
+  window.addEventListener("load", tryLoad);
 
-    // 1) On page load (for returning visitors who already gave consent)
-    window.addEventListener("load", function () {
-      loadGA4IfAllowed();
-    });
-
-    // 2) When consent is updated (see step 2 below)
-    window.addEventListener("cookieConsentUpdated", function (event) {
-      const state = event.detail || {};
-      if (state.analytics) {
-        loadGA4();
-      }
-    });
-
-    // Optional: expose it globally if you ever want to call it yourself
-    window._loadGA4IfAllowed = loadGA4IfAllowed;
-  })();
+  // Load immediately when user clicks "Accept" or "Save"
+  window.addEventListener("cookieConsentUpdated", e => {
+    if(e.detail?.analytics === true) loadGA4();
+  });
+})();
 </script>
 
 </body>
 </html>
-
