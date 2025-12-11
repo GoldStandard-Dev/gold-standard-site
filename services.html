@@ -1,37 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Services & Pricing – Gold Standard Digital Marketing</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8" />
+  <title>Services – Gold Standard Digital Marketing</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" type="image/png" href="images/favicon-32.png" sizes="32x32">
+  <link rel="icon" type="image/png" href="images/favicon-192.png" sizes="192x192">
+  <link rel="apple-touch-icon" href="images/favicon-192.png">
+  <meta name="theme-color" content="#d4af37">
+
 </head>
 <body>
 
 <header>
   <div class="max-width nav">
+    <!-- LEFT: logo + site title -->
     <div class="nav-left">
       <div class="nav-logo">
         <img src="images/logo/logo.png" alt="Gold Standard Digital Marketing Logo" />
       </div>
-      <div class="brand-text">
+
+      <a href="index.html" class="brand-text">
         GOLD STANDARD
         <span>DIGITAL MARKETING</span>
-      </div>
+      </a>
     </div>
 
-    <button class="nav-toggle" aria-label="Toggle navigation">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
-
+    <!-- RIGHT: single nav -->
     <nav class="nav-links">
       <a href="index.html">Home</a>
       <a href="services.html">Services</a>
       <a href="about.html">About</a>
       <a href="contact.html">Contact</a>
     </nav>
+
+    <!-- Mobile toggle -->
+    <button class="nav-toggle" aria-label="Toggle navigation">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
   </div>
 </header>
 
@@ -336,9 +345,9 @@
     </p>
     <div class="footer-social">
       <!-- Replace # with your real profiles -->
-      <a href="#" target="_blank" rel="noopener">Instagram</a>
-      <a href="#" target="_blank" rel="noopener">Facebook</a>
-      <a href="#" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://www.instagram.com/gold_standard_digital/" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.facebook.com/GDSMAgency" target="_blank" rel="noopener">Facebook</a>
+      <a href="https://www.linkedin.com/in/gold-standard-digital-876939399/" target="_blank" rel="noopener">LinkedIn</a>
     </div>
   </div>
 </footer>
@@ -522,192 +531,185 @@
 </div>
 
 <script>
-const COOKIE_CONSENT_KEY = "gsd_cookie_consent_v1";
+  const COOKIE_CONSENT_KEY = "gsd_cookie_consent_v1";
 
-function saveConsentState(state) {
-  const value = JSON.stringify(state);
-  const expires = new Date();
-  expires.setTime(expires.getTime() + 180 * 24 * 60 * 60 * 1000); // 180 days
-  document.cookie =
-    COOKIE_CONSENT_KEY + "=" + encodeURIComponent(value) +
-    ";expires=" + expires.toUTCString() + ";path=/";
-}
+  function saveConsentState(state) {
+    const value = JSON.stringify(state);
+    const expires = new Date();
+    expires.setTime(expires.getTime() + 180 * 24 * 60 * 60 * 1000); // 180 days
 
-function loadConsentState() {
-  const cookies = document.cookie.split("; ");
-  for (let i = 0; i < cookies.length; i++) {
-    const [key, val] = cookies[i].split("=");
-    if (key === COOKIE_CONSENT_KEY) {
-      try {
-        return JSON.parse(decodeURIComponent(val));
-      } catch (e) {
-        return null;
+    document.cookie =
+      COOKIE_CONSENT_KEY + "=" + encodeURIComponent(value) +
+      ";expires=" + expires.toUTCString() + ";path=/;SameSite=Lax";
+
+    try {
+      localStorage.setItem(COOKIE_CONSENT_KEY, value);
+    } catch (e) {}
+  }
+
+  function loadConsentState() {
+    try {
+      const ls = localStorage.getItem(COOKIE_CONSENT_KEY);
+      if (ls) return JSON.parse(ls);
+    } catch (e) {}
+
+    const cookies = document.cookie.split("; ");
+    for (let i = 0; i < cookies.length; i++) {
+      const [key, val] = cookies[i].split("=");
+      if (key === COOKIE_CONSENT_KEY) {
+        try {
+          return JSON.parse(decodeURIComponent(val));
+        } catch (e) {
+          return null;
+        }
       }
     }
-  }
-  return null;
-}
-
-// Helper for your other scripts (GA, Meta, etc.)
-function hasConsent(category) {
-  const state = loadConsentState();
-  if (!state) return false;
-  return !!state[category];
-}
-
-window.addEventListener("load", function () {
-  const banner = document.getElementById("cookie-banner");
-  const modalOverlay = document.getElementById("cookie-modal-overlay");
-  const manageTrigger = document.getElementById("cookie-manage-trigger");
-
-  if (!banner || !modalOverlay) return;
-
-  const acceptAllBtn = document.getElementById("cookie-accept-all");
-  const rejectAllBtn = document.getElementById("cookie-reject-all");
-  const customizeBtn = document.getElementById("cookie-customize");
-  const acceptAllBtn2 = document.getElementById("cookie-accept-all-2");
-  const savePrefsBtn = document.getElementById("cookie-save-preferences");
-  const closeModalBtn = document.querySelector(".cookie-modal-close");
-  const toggleInputs = document.querySelectorAll("input[data-cookie-category]");
-
-  function openBannerIfNeeded() {
-    const existing = loadConsentState();
-    if (!existing) {
-      banner.style.display = "block";
-    }
+    return null;
   }
 
-  function hideBanner() {
-    banner.style.display = "none";
+  // Helper for GA4 etc.
+  function isCategoryAllowed(category) {
+    const state = loadConsentState();
+    if (!state) return false;
+    return !!state[category];
   }
 
-  function openModal() {
-    modalOverlay.style.display = "flex";
-    modalOverlay.setAttribute("aria-hidden", "false");
-    const existing = loadConsentState();
-    if (existing) {
-      toggleInputs.forEach((input) => {
-        const cat = input.getAttribute("data-cookie-category");
-        input.checked = !!existing[cat];
-      });
-    } else {
-      toggleInputs.forEach((input) => (input.checked = false));
-    }
-  }
+  // GA4 loader – only runs if analytics is allowed
+  function loadGA4IfAllowed() {
+    if (!isCategoryAllowed("analytics")) return;
+    if (window.gtagLoaded) return; // avoid loading twice
 
-  function closeModal() {
-    modalOverlay.style.display = "none";
-    modalOverlay.setAttribute("aria-hidden", "true");
-  }
+    window.gtagLoaded = true;
 
-  function setConsentAndClose(consent) {
-    // Always enforce essential: true
-    const state = Object.assign({ essential: true }, consent);
-
-    saveConsentState(state);
-    hideBanner();
-    closeModal();
-
-    // 🔵 NEW: let other scripts (like GA4) know consent changed
-    try {
-      window.dispatchEvent(
-        new CustomEvent("cookieConsentUpdated", { detail: state })
-      );
-    } catch (e) {
-      // fail silently if CustomEvent isn't supported
-    }
-  }
-
-
-  // Banner buttons
-  acceptAllBtn.addEventListener("click", function () {
-    setConsentAndClose({ analytics: true, marketing: true, functional: true });
-  });
-
-  rejectAllBtn.addEventListener("click", function () {
-    setConsentAndClose({ analytics: false, marketing: false, functional: false });
-  });
-
-  customizeBtn.addEventListener("click", function () {
-    hideBanner();
-    openModal();
-  });
-
-  // Modal buttons
-  acceptAllBtn2.addEventListener("click", function () {
-    setConsentAndClose({ analytics: true, marketing: true, functional: true });
-  });
-
-  savePrefsBtn.addEventListener("click", function () {
-    const prefs = { essential: true };
-    toggleInputs.forEach((input) => {
-      const cat = input.getAttribute("data-cookie-category");
-      prefs[cat] = input.checked;
-    });
-    setConsentAndClose(prefs);
-  });
-
-  closeModalBtn.addEventListener("click", closeModal);
-
-  modalOverlay.addEventListener("click", function (e) {
-    if (e.target === modalOverlay) {
-      closeModal();
-    }
-  });
-
-  // Footer link (optional)
-  if (manageTrigger) {
-    manageTrigger.addEventListener("click", function () {
-      openModal();
-    });
-  }
-
-  openBannerIfNeeded();
-});
-</script>
-
-<!-- ============================== -->
-<!--  GOOGLE ANALYTICS (CONSENT-BASED)  -->
-<!-- ============================== -->
-<script>
-(function(){
-  const GA4_ID = "G-4M3Y8CLP43";     // YOUR ID ✔
-  let gaLoaded = false;
-
-  function loadGA4(){
-    if(gaLoaded) return;
-    gaLoaded = true;
-
-    // Inject GA script
+    // --- GA4 snippet with your ID ---
     const s = document.createElement("script");
     s.async = true;
-    s.src = "https://www.googletagmanager.com/gtag/js?id=" + GA4_ID;
+    s.src = "https://www.googletagmanager.com/gtag/js?id=G-4M3Y8CLP43";
     document.head.appendChild(s);
 
-    // Configure GA
     window.dataLayer = window.dataLayer || [];
     function gtag(){ dataLayer.push(arguments); }
     window.gtag = gtag;
 
     gtag("js", new Date());
-    gtag("config", GA4_ID, { anonymize_ip:true });
+    gtag("config", "G-4M3Y8CLP43", {
+      anonymize_ip: true
+    });
   }
 
-  // Load only if analytics consent = ON
-  function tryLoad(){
-    if(typeof hasConsent === "function" && hasConsent("analytics")){
-      loadGA4();
+  window.addEventListener("load", function () {
+    const banner = document.getElementById("cookie-banner");
+    const modalOverlay = document.getElementById("cookie-modal-overlay");
+    const manageTrigger = document.getElementById("cookie-manage-trigger");
+
+    if (!banner || !modalOverlay) {
+      loadGA4IfAllowed();
+      return;
     }
-  }
 
-  // Load on first visit if user already accepted cookies
-  window.addEventListener("load", tryLoad);
+    const acceptAllBtn   = document.getElementById("cookie-accept-all");
+    const rejectAllBtn   = document.getElementById("cookie-reject-all");
+    const customizeBtn   = document.getElementById("cookie-customize");
+    const acceptAllBtn2  = document.getElementById("cookie-accept-all-2");
+    const savePrefsBtn   = document.getElementById("cookie-save-preferences");
+    const closeBtn       = document.getElementById("cookie-modal-close");
+    const toggleInputs   = modalOverlay.querySelectorAll("[data-cookie-category]");
 
-  // Load immediately when user clicks "Accept" or "Save"
-  window.addEventListener("cookieConsentUpdated", e => {
-    if(e.detail?.analytics === true) loadGA4();
+    function openBannerIfNeeded() {
+      const existing = loadConsentState();
+      if (!existing) {
+        banner.style.display = "block";
+      } else {
+        loadGA4IfAllowed();
+      }
+    }
+
+    function hideBanner() {
+      banner.style.display = "none";
+    }
+
+    function openModal() {
+      modalOverlay.style.display = "flex";
+      modalOverlay.setAttribute("aria-hidden", "false");
+
+      const existing = loadConsentState();
+      if (existing) {
+        toggleInputs.forEach((input) => {
+          const cat = input.getAttribute("data-cookie-category");
+          input.checked = !!existing[cat];
+        });
+      } else {
+        toggleInputs.forEach((input) => (input.checked = false));
+      }
+    }
+
+    function closeModal() {
+      modalOverlay.style.display = "none";
+      modalOverlay.setAttribute("aria-hidden", "true");
+    }
+
+    function setConsentAndClose(consent) {
+      const state = Object.assign(
+        { essential: true, analytics: false, marketing: false, functional: false },
+        consent || {}
+      );
+      saveConsentState(state);
+      hideBanner();
+      closeModal();
+      loadGA4IfAllowed();
+    }
+
+    if (acceptAllBtn) {
+      acceptAllBtn.addEventListener("click", function () {
+        setConsentAndClose({ analytics: true, marketing: true, functional: true });
+      });
+    }
+
+    if (rejectAllBtn) {
+      rejectAllBtn.addEventListener("click", function () {
+        setConsentAndClose({ analytics: false, marketing: false, functional: false });
+      });
+    }
+
+    if (customizeBtn) {
+      customizeBtn.addEventListener("click", function () {
+        hideBanner();
+        openModal();
+      });
+    }
+
+    if (acceptAllBtn2) {
+      acceptAllBtn2.addEventListener("click", function () {
+        setConsentAndClose({ analytics: true, marketing: true, functional: true });
+      });
+    }
+
+    if (savePrefsBtn) {
+      savePrefsBtn.addEventListener("click", function () {
+        const prefs = { essential: true };
+        toggleInputs.forEach((input) => {
+          const cat = input.getAttribute("data-cookie-category");
+          prefs[cat] = input.checked;
+        });
+        setConsentAndClose(prefs);
+      });
+    }
+
+    if (closeBtn) {
+      closeBtn.addEventListener("click", function () {
+        closeModal();
+      });
+    }
+
+    if (manageTrigger) {
+      manageTrigger.addEventListener("click", function (e) {
+        e.preventDefault();
+        openModal();
+      });
+    }
+
+    openBannerIfNeeded();
   });
-})();
 </script>
 
 </body>

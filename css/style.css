@@ -133,12 +133,19 @@ header {
   filter: drop-shadow(0 0 14px rgba(212, 175, 55, 0.8));
 }
 
+/* Brand title link */
 .brand-text {
   font-family: var(--font-display);
   font-size: 1rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--gold-soft);
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.35s ease, opacity 0.35s ease;
 }
 
 .brand-text span {
@@ -146,6 +153,16 @@ header {
   font-size: 0.7rem;
   letter-spacing: 0.24em;
   color: var(--text-muted);
+  transition: color 0.35s ease;
+}
+
+/* Premium gold fade hover */
+.brand-text:hover {
+  color: var(--gold);
+}
+
+.brand-text:hover span {
+  color: var(--gold-muted);
 }
 
 /* Nav links as buttons */
@@ -153,6 +170,7 @@ header {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  margin-left: auto;
 }
 
 .nav-links a {
@@ -578,42 +596,6 @@ header {
   box-shadow: 0 22px 45px rgba(0, 0, 0, 0.85);
 }
 
-/* Framed icons for home service cards */
-.service-card-icon {
-  width: 80px;
-  height: 80px;
-  border-radius: 18px;
-  overflow: hidden;
-  margin-bottom: 1.1rem;
-  border: 1px solid rgba(212, 175, 55, 0.55);
-  box-shadow: 0 18px 32px rgba(0, 0, 0, 0.9);
-  background: radial-gradient(circle at top, rgba(212, 175, 55, 0.35), #050608 70%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
-}
-
-/* gold divider under icon */
-.service-card-icon::after {
-  content: "";
-  position: absolute;
-  bottom: -10px;
-  left: 10%;
-  right: 10%;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--gold), transparent);
-  opacity: 0.8;
-}
-
-.service-card-icon img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
 /* hover glow for icons */
 .service-card:hover .service-card-icon {
   box-shadow: 0 0 26px rgba(212, 175, 55, 0.9);
@@ -658,10 +640,13 @@ header {
 }
 
 @keyframes floatGlow {
-  0%   { transform: translateY(0px); }
-  100% { transform: translateY(-18px); }
+  0% {
+    transform: translateY(0px);
+  }
+  100% {
+    transform: translateY(-18px);
+  }
 }
-
 
 /* ===========================================
    SERVICES PAGE – ROW LAYOUT + PRICING
@@ -741,7 +726,7 @@ header {
   grid-template-columns: minmax(0, 1.5fr) minmax(0, 1.1fr);
   gap: 2.2rem;
   align-items: flex-start;
-  scroll-margin-top: 110px; /* <-- add this */
+  scroll-margin-top: 110px;
 }
 
 .service-info h2 {
@@ -783,14 +768,9 @@ header {
   color: var(--gold-soft);
 }
 
+/* Hide the small label icons on the Services page */
 .service-label-icon {
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  object-fit: cover;
-  flex-shrink: 0;
-  border: 1px solid rgba(212, 175, 55, 0.7);
-  box-shadow: 0 0 14px rgba(0, 0, 0, 0.8);
+  display: none;
 }
 
 /* pricing side */
@@ -1064,12 +1044,13 @@ header {
   /* ▸ Left side: normal background
      ▸ Right side: image with gold overlay */
   background:
-    linear-gradient(to right, 
-      rgba(5,6,8,0.97) 0%,       /* dark start for form */
-      rgba(5,6,8,0.93) 50%,      /* form comfortably visible */
-      rgba(5,6,8,0.68) 58%,      /* transition begins sooner */
-      rgba(5,6,8,0.38) 75%,      /* image more exposed here */
-      rgba(5,6,8,0.22) 100%
+    linear-gradient(
+      to right,
+      rgba(5, 6, 8, 0.97) 0%,
+      rgba(5, 6, 8, 0.93) 50%,
+      rgba(5, 6, 8, 0.68) 58%,
+      rgba(5, 6, 8, 0.38) 75%,
+      rgba(5, 6, 8, 0.22) 100%
     ),
     url("../images/contact/contact-hero.png") right center / cover no-repeat;
 }
@@ -1359,11 +1340,11 @@ header {
 =========================================== */
 
 .reveal-on-scroll {
-  /* base state already on .service-card */
+  /* base state: handled on elements like .service-card */
 }
 
 .reveal-on-scroll.visible {
-  /* class handled above on .service-card */
+  /* visible state handled per-element */
 }
 
 /* ===========================================
@@ -1458,11 +1439,11 @@ header {
   height: 75px;
   margin: 0 auto 1.3rem auto;
   border-radius: 16px;
-  border: 1px solid rgba(212,175,55,0.6);
+  border: 1px solid rgba(212, 175, 55, 0.6);
   background:
-    radial-gradient(circle at top, rgba(212,175,55,0.3), transparent 65%),
+    radial-gradient(circle at top, rgba(212, 175, 55, 0.3), transparent 65%),
     rgba(5, 6, 10, 0.7);
-  box-shadow: 0 14px 40px rgba(0,0,0,0.95);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.95);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1477,7 +1458,7 @@ header {
 }
 
 .service-card-icon::after {
-  content:"";
+  content: "";
   width: 44px;
   height: 1px;
   background: linear-gradient(90deg, transparent, var(--gold), transparent);
@@ -1493,10 +1474,6 @@ header {
   height: 100%;
   object-fit: cover;
   display: block;
-}
-/* Hide the small label icons on the Services page */
-.service-label-icon {
-  display: none;
 }
 
 /* -------------------------------------------
@@ -1515,12 +1492,12 @@ header {
   position: absolute;
   inset: 0;
   background-repeat: no-repeat;
-  background-size: 260px;           /* size of the icon */
-  background-position: center;   /* move icon up/down/left/right */
-  opacity: 0.1;                    /* strength of the watermark */
+  background-size: 260px;
+  background-position: center;
+  opacity: 0.1;
   mix-blend-mode: screen;
   pointer-events: none;
-  z-index: -1;                      /* ensures it sits *behind* the text */
+  z-index: -1;
 }
 
 /* Individual icons for each service */
@@ -1540,54 +1517,31 @@ header {
   background-image: url("../images/services/web-design.png");
 }
 
-.policy-hero {
-  text-align:center;
-  padding:5rem 2rem 3rem;
-  background:linear-gradient(to bottom, rgba(212,175,55,.15), transparent 60%);
-}
-
 /* --------------
-   Policy & Terms 
+   Policy & Terms
    -------------- */
 
-.policy-hero h1 {
-  font-size:2.6rem;
-  letter-spacing:.18em;
-  text-transform:uppercase;
-  margin-bottom:.4rem;
-}
-
-.policy-sub {
-  color:var(--gold-soft);
-  letter-spacing:.15em;
-  font-size:.95rem;
-}
-
-.policy-content {
-  max-width:900px;
-  margin:auto;
-  padding:3rem 2rem;
-  line-height:1.85;
-}
-
-.policy-content h2 {
-  margin-top:2rem;
-  font-size:1.3rem;
-  color:var(--gold-soft);
-  letter-spacing:.1em;
-  text-transform:uppercase;
-}
-
-.policy-content p {
-  color:var(--text-muted);
-  margin-top:.7rem;
-}
-
-/* Gold line under hero */
 .policy-hero {
+  text-align: center;
+  padding: 5rem 2rem 3rem;
+  background: linear-gradient(to bottom, rgba(212, 175, 55, 0.15), transparent 60%);
   position: relative;
 }
 
+.policy-hero h1 {
+  font-size: 2.6rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
+
+.policy-sub {
+  color: var(--gold-soft);
+  letter-spacing: 0.15em;
+  font-size: 0.95rem;
+}
+
+/* Gold line under hero */
 .policy-hero::after {
   content: "";
   position: absolute;
@@ -1616,9 +1570,30 @@ header {
   padding: 2.5rem 2.2rem 3rem;
   border-radius: 18px;
   border: 1px solid rgba(212, 175, 55, 0.25);
-  background: radial-gradient(circle at top left, rgba(212,175,55,0.09), transparent 55%),
-              #050608;
+  background:
+    radial-gradient(circle at top left, rgba(212, 175, 55, 0.09), transparent 55%),
+    #050608;
   box-shadow: 0 20px 45px rgba(0, 0, 0, 0.75);
+}
+
+.policy-content {
+  max-width: 900px;
+  margin: auto;
+  padding: 3rem 2rem;
+  line-height: 1.85;
+}
+
+.policy-content h2 {
+  margin-top: 2rem;
+  font-size: 1.3rem;
+  color: var(--gold-soft);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.policy-content p {
+  color: var(--text-muted);
+  margin-top: 0.7rem;
 }
 
 /* Fade-up animation */
@@ -1671,6 +1646,23 @@ header {
     radial-gradient(circle at top left, rgba(212, 175, 55, 0.13), transparent 55%),
     #050608;
   box-shadow: 0 24px 55px rgba(0, 0, 0, 0.9);
+  position: relative;
+  overflow: hidden; /* keeps watermark inside card */
+}
+
+/* Gold compass watermark */
+.error-404-inner::before {
+  content: "";
+  position: absolute;
+  width: 260px;
+  height: 260px;
+  right: -60px;
+  top: -40px;
+  background: url("images/about/icon-compass.png") no-repeat center/contain;
+  opacity: 0.22;
+  filter: drop-shadow(0 0 12px rgba(212, 175, 55, 0.55));
+  pointer-events: none;
+  mix-blend-mode: screen;
 }
 
 .error-kicker {
@@ -1710,8 +1702,12 @@ header {
   text-transform: uppercase;
   text-decoration: none;
   border: 1px solid rgba(212, 175, 55, 0.7);
-  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease,
-              box-shadow 0.2s ease, border-color 0.2s ease;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
 }
 
 .error-btn-primary {
@@ -1758,27 +1754,6 @@ header {
   .error-404-inner h1 {
     font-size: 2rem;
   }
-
-  .error-404-inner {
-  position: relative;
-  overflow: hidden; /* ensures watermark stays inside card */
-}
-
-/* Gold compass watermark */
-.error-404-inner::before {
-  content:"";
-  position:absolute;
-  width:260px;   /* adjust 220–320 for sizing */
-  height:260px;
-  right:-60px;   /* moves compass slightly off edge */
-  top:-40px;
-  background:url("images/about/icon-compass.png") no-repeat center/contain;
-  opacity:0.22;
-  filter:drop-shadow(0 0 12px rgba(212,175,55,0.55));
-  pointer-events:none;
-  mix-blend-mode:screen;  /* gold glow blends into card */
-}
-
 
   .error-actions {
     flex-direction: column;
@@ -2041,6 +2016,7 @@ header {
     left: 10px;
     right: 10px;
   }
+
   .cookie-box {
     width: 100%;
   }
